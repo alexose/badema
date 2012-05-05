@@ -7,7 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="lib/leaflet-custom.js"></script>
 	<script src="lib/underscore-min.js"></script>	
-	
+	<script src="leaflet-geojson/dist/grate.js"></script>
 	<style type="text/css">
 		body { font-family:Helvetica, sans-serif;}
 		#loadcontrol { width:888px; padding:5px; border:1px solid #ccc; background:#f5f5f5;}
@@ -28,7 +28,92 @@
 	<div id="map" style="width: 900px; height: 500px"></div>
 
 	<script>
-    	$(document).ready(function() {						
+    	$(document).ready(function() {	
+			var csvfile = "data/energymix.csv";
+			var em = {};
+	
+			function energyMixData() {
+				$.get(csvfile, 
+					function(data) { 
+						var array_rows = data.split("\n"); 
+						for (var i in array_rows) {
+							var row = array_rows[i].split(",");
+							em[row[0].replace("0","")] = {
+								"Renewables" : row[1],
+								"Coal" : row[2],
+								"Natural Gas" : row[3] 
+							};
+							
+						} 
+					 }
+				);
+			}
+			energyMixData();
+			function addIntersection(id, set_id) {
+				if (set_id == "") {
+					// default: countries
+					set_id = 23;
+				}
+				$.getJSON("http://demo.sourcemap.com/services/geospatial/intersection?attribute=name&supplychain_id="+id+"&set_id="+set_id, function(data) {		
+					var linetype = $("#linetype option:selected").val();
+					if(linetype != "st") {	 
+						for (var i = 0, len = data.features.length; i < len; i++) {
+							if(data.features[i].geometry.type == "LineString") {
+								var fromx = data.features[i].geometry.coordinates[0][0];
+								var fromy = data.features[i].geometry.coordinates[0][1];
+								var tox = data.features[i].geometry.coordinates[1][0];
+								var toy = data.features[i].geometry.coordinates[1][1];
+
+								data.features[i].geometry.type = "MultiLineString";
+								if(linetype == "gc") {
+									var multipass = Grate.great_circle_route([fromx, fromy], [tox, toy], 7, map.getPixelBounds());
+								
+								}
+								else {
+									var multipass = Grate.bezier_route([fromx, fromy], [tox, toy], 7, map.getPixelBounds());
+								
+								}
+								data.features[i].geometry.coordinates = multipass;
+							}
+						}
+					}
+					
+					var geojsonLayer = new L.GeoJSON(null, {});		
+					geojsonLayer.on("featureparse", function (e) {
+						var title = "Unnamed."
+						if(typeof(e.properties.title) != 'undefined') {
+							title = e.properties.title;
+						}
+						var description = ""
+						if(typeof(e.properties.description) != 'undefined') {
+							description = e.properties.description;
+						}
+					
+					    var popupContent = "<h2>"+title+"</h2><p>"+description+"</p>";
+					    if (e.properties && e.properties.popupContent) {
+					        popupContent += e.properties.popupContent;
+					    }
+					    e.layer.bindPopup(popupContent);
+					    if (e.properties && e.properties.style && e.layer.setStyle) {
+					        e.layer.setStyle(e.properties.style);
+					    }
+					});
+
+					map.addLayer(geojsonLayer);
+
+					
+					geojsonLayer.addGeoJSON(data);
+					geojsonLayer.setStyle({
+						"color": "#237FD0",
+						"weight": 3,
+						"opacity": 0.4
+					});
+					
+					var maptitle = '';
+	
+					layersControl.addOverlay(geojsonLayer, data.properties.title);
+			  	});			
+		 	}
 			function addGeojson(id) {
 				$.getJSON("http://dev.sourcemap.com/services/supplychains/"+id+"?f=geojson", function(data) {		
 					var linetype = $("#linetype option:selected").val();
