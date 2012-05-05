@@ -49,8 +49,9 @@ div.clear{
 }
 
 div#overlay-product{
+    text-align:center;
     float: none;
-    width: 100em;
+    width: 140em;
 }
 
 div#overlay-result{
@@ -68,5 +69,21 @@ div#overlay-result{
     font-size: 2em;
     font-family: 'Quicksand', sans-serif;
     font-weight: 100;
+}
+
+div.select{
+    display:inline-block;
+    width: 32px;
+    height: 32px;
+    opacity: .2;
+    background-size: 32px 32px;
+}
+
+div#supplychain-list{
+    background:url('images/arrow.png') top right no-repeat;
+}
+
+div#receipt{
+    background:url('images/page.png') top right no-repeat;
 }
 
