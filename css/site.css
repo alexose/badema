@@ -1,0 +1,50 @@
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+}
+
+#map{
+    width: 100%;
+    height: 100%;
+}
+
+#config{
+}
+
+#config > div{
+    display:none;
+}
+
+#overlay{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10em;
+    background: rgba(0,0,0,.6);
+    color: #fff;
+}
+
+#overlay ul{
+    list-style: none;
+}
+
+#overlay li{
+    float: left;
+    padding: 0 2em;
+}
+
+#overlay .readout{
+    font-size: 5em;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
+}
+
+#overlay .readout-small{
+    font-size: 2em;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
+}
+
