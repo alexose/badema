@@ -69,67 +69,13 @@
 					set_id = 23;
 				}
 				$.getJSON("http://demo.sourcemap.com/services/geospatial/intersection?attribute=name&supplychain_id="+id+"&set_id="+set_id, function(data) {		
-					var linetype = $("#linetype option:selected").val();
-					if(linetype != "st") {	 
-						for (var i = 0, len = data.features.length; i < len; i++) {
-							if(data.features[i].geometry.type == "LineString") {
-								var fromx = data.features[i].geometry.coordinates[0][0];
-								var fromy = data.features[i].geometry.coordinates[0][1];
-								var tox = data.features[i].geometry.coordinates[1][0];
-								var toy = data.features[i].geometry.coordinates[1][1];
-
-								data.features[i].geometry.type = "MultiLineString";
-								if(linetype == "gc") {
-									var multipass = Grate.great_circle_route([fromx, fromy], [tox, toy], 7, map.getPixelBounds());
-								
-								}
-								else {
-									var multipass = Grate.bezier_route([fromx, fromy], [tox, toy], 7, map.getPixelBounds());
-								
-								}
-								data.features[i].geometry.coordinates = multipass;
-							}
-						}
-					}
-					
-					var geojsonLayer = new L.GeoJSON(null, {});		
-					geojsonLayer.on("featureparse", function (e) {
-						var title = "Unnamed."
-						if(typeof(e.properties.title) != 'undefined') {
-							title = e.properties.title;
-						}
-						var description = ""
-						if(typeof(e.properties.description) != 'undefined') {
-							description = e.properties.description;
-						}
-					
-					    var popupContent = "<h2>"+title+"</h2><p>"+description+"</p>";
-					    if (e.properties && e.properties.popupContent) {
-					        popupContent += e.properties.popupContent;
-					    }
-					    e.layer.bindPopup(popupContent);
-					    if (e.properties && e.properties.style && e.layer.setStyle) {
-					        e.layer.setStyle(e.properties.style);
-					    }
-					});
-
-					map.addLayer(geojsonLayer);
-
-					
-					geojsonLayer.addGeoJSON(data);
-					geojsonLayer.setStyle({
-						"color": "#237FD0",
-						"weight": 3,
-						"opacity": 0.4
-					});
-					
-					var maptitle = '';
-	
-					layersControl.addOverlay(geojsonLayer, data.properties.title);
+					return data; 
 			  	});			
 		 	}
 			function addGeojson(id) {
-				$.getJSON("http://dev.sourcemap.com/services/supplychains/"+id+"?f=geojson", function(data) {		
+				var intersection_data = addIntersection(id, "");
+				console.log(intersection_data);
+				$.getJSON("http://demo.sourcemap.com/services/supplychains/"+id+"?f=geojson", function(data) {		
 					var linetype = $("#linetype option:selected").val();
 					if(linetype != "st") {	 
 						for (var i = 0, len = data.features.length; i < len; i++) {
@@ -148,7 +94,6 @@
                                     var c = multipass.coords[i];
                                     points.push(new L.LatLng(c[1], c[0]));
                                 }
-                                console.log(data);
                                 data.features[i].geometry.coordinates = points;
                             }
 						}
