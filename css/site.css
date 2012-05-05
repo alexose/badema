@@ -39,7 +39,11 @@ div.clear{
     color: #fff;
 }
 
-#overlay div{
+#overlay .jslider .jslider-value{
+    display:none !important;
+}
+
+#overlay > div{
     width: 16em;
     padding: 0 2em;
 }
