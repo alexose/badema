@@ -7,6 +7,13 @@ html, body{
     font-family:Helvetica, sans-serif;
 }
 
+h1,h2,h3,h4,h5,h6{
+    font-size: 5em;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
+}
+
+
 div.left{
     float: left;
 }
@@ -21,6 +28,66 @@ div.clear{
 #map{
     width: 100%;
     height: 100%;
+}
+
+#dialog{
+    color: #fff;
+    z-index:999;
+    position: absolute;
+    background: rgba(0,0,0,.6);
+    border: 1px solid #000;
+    height: 30em;
+    width: 60em;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+#dialog-close{
+    cursor: pointer;
+    background: url('images/close.png');
+    background-size: 32px 32px;
+    position: absolute;
+    top: 3px;
+    right: 0;
+    height: 32px;
+    width: 32px;
+}
+
+#dialog::-webkit-scrollbar {
+    width: 14px;
+    height: 16px;
+    overflow: visible;
+}
+#dialog::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .8);
+    background-clip: padding-box;
+    min-height: 28px;
+    padding: 100px 0 0;
+}
+#dialog::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, .4);
+    background-clip: padding-box;
+    border: solid transparent;
+}
+#dialog::-webkit-scrollbar-button {
+    height: 0;
+    width: 0;
+}
+#dialog::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+#dialog-inner{
+    padding:0 2em;
+}
+
+#dialog.side{
+    right: 20px;
+    left: auto;
 }
 
 #config{
