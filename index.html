@@ -7,6 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="lib/leaflet-custom.js"></script>
 	<script src="lib/underscore-min.js"></script>	
+	<script src="lib/arc.js"></script>	
 	
 	<style type="text/css">
 		body { font-family:Helvetica, sans-serif;}
@@ -20,7 +21,6 @@
 		Linestyle:
 		<select id="linetype">
 			<option value="st">Straight</option>
-			<option value="bz" selected="selected">Bezier</option>
 			<option value="gc">Great Circle</option>			
 		</select>
 		<input type="button" id="maptrigger" value="Go"></input> 
@@ -34,23 +34,24 @@
 					var linetype = $("#linetype option:selected").val();
 					if(linetype != "st") {	 
 						for (var i = 0, len = data.features.length; i < len; i++) {
+                            var npoints = 100;
 							if(data.features[i].geometry.type == "LineString") {
-								var fromx = data.features[i].geometry.coordinates[0][0];
-								var fromy = data.features[i].geometry.coordinates[0][1];
-								var tox = data.features[i].geometry.coordinates[1][0];
-								var toy = data.features[i].geometry.coordinates[1][1];
+                                var from = data.features[i].geometry.coordinates[0];
+                                var to = data.features[i].geometry.coordinates[1];
 
 								data.features[i].geometry.type = "MultiLineString";
-								if(linetype == "gc") {
-									var multipass = Grate.great_circle_route([fromx, fromy], [tox, toy], 7, map.getPixelBounds());
-								
-								}
-								else {
-									var multipass = Grate.bezier_route([fromx, fromy], [tox, toy], 7, map.getPixelBounds());
-								
-								}
-								data.features[i].geometry.coordinates = multipass;
-							}
+								if(linetype == "gc"){
+                                    var gc = new arc.GreatCircle({'x' : from[0], 'y' : from[1]},{'x' : to[0], 'y': from[1]});
+                                    var multipass = gc.Arc(npoints);
+                                }
+                                var points = [];
+                                for (i=0;i<npoints;i++){
+                                    var c = multipass.coords[i];
+                                    points.push(new L.LatLng(c[1], c[0]));
+                                }
+                                console.log(data);
+                                data.features[i].geometry.coordinates = points;
+                            }
 						}
 					}
 					
@@ -74,10 +75,7 @@
 					        e.layer.setStyle(e.properties.style);
 					    }
 					});
-
 					map.addLayer(geojsonLayer);
-
-					
 					geojsonLayer.addGeoJSON(data);
 					geojsonLayer.setStyle({
 						"color": "#237FD0",
