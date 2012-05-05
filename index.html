@@ -33,12 +33,20 @@
     </div>
 	<div id="map"></div>
     <div id="overlay">
-        <ul>
-            <li>
-                <span class="readout-small">$</span><span class="readout">0.00</span>
-                <div class="slider"><input id="money-slider"></input></div>
-            </li>
-        </ul>
+        <div id="overlay-money" class="left">
+            <span class="readout-small">$</span><span class="readout">0.00</span>
+            <div class="slider"><input id="money-slider"></input></div>
+        </div>
+        <div id="overlay-result" class="right">
+            <span class="readout-small">saves</span><span class="readout">0</span><span class="readout-small">kg co2e</span>
+        </div>
+        <div id="overlay-product">
+            <span class="readout-small">Spent on</span><span class="readout">Laptop Computer</span>
+            <div class="select">
+
+            </div>
+        </div>
+        <div class="clear"></div>
     </div>
 </div>
 	<script>
@@ -142,9 +150,7 @@
 			var bluemarbleUrl = 'http://{s}.tiles.mapbox.com/v3/mapbox.blue-marble-topo-bathy-jul-bw/{z}/{x}/{y}.png';
 			var bluemarbleAttribution = 'NASA Blue Marble Topography from MapBox';
 			var bluemarble = new L.TileLayer(bluemarbleUrl, {maxZoom: 8, attribution: bluemarbleAttribution});
-			
-			
-			
+				
 			map.setView(new L.LatLng(0, 0), 2).addLayer(bluemarble).addLayer(cloudmade);
 			var baseMaps = {
 				"Cloudmade": cloudmade,
@@ -156,8 +162,18 @@
 		 	$("#maptrigger").click(function() {
 			 	addGeojson($("#smapid").val());
 			});
-			
-			map.attributionControl.setPrefix('<a href="http://www.sourcemap.com">Powered by Sourcemap</a> (Using Leaflet)');
+		
+            // Add data overlay layers
+            var solarLayer = new L.TileLayer.WMS('http://ec2-23-21-2-183.compute-1.amazonaws.com:8080/geoserver/gwc/service/wms',{
+                layers: 'cleanweb:net_radiation_rgb_201106',
+                format: 'image/png',
+                transparent: true,
+                opacity: 0.6,
+                attribution: "Weather data Â© 2012 IEM Nexrad"
+            }); 
+            layersControl.addOverlay(solarLayer, "Dat Solar Data");
+
+            map.attributionControl.setPrefix('<a href="http://www.sourcemap.com">Powered by Sourcemap</a> (Using Leaflet)');
 			map.setView(new L.LatLng(0, 0), 2).locate({setView: true, maxZoom: 2});
 			addGeojson($("#smapid").val());
       	});
