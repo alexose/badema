@@ -6,6 +6,17 @@ html, body{
     overflow:hidden;
 }
 
+div.left{
+    float: left;
+}
+div.right{
+    float: right;
+}
+
+div.clear{
+    clear: both;
+}
+
 #map{
     width: 100%;
     height: 100%;
@@ -27,14 +38,19 @@ html, body{
     color: #fff;
 }
 
-#overlay ul{
-    list-style: none;
-}
-
-#overlay li{
-    float: left;
+#overlay div{
     width: 16em;
     padding: 0 2em;
+}
+
+div#overlay-product{
+    float: none;
+    width: 100em;
+}
+
+div#overlay-result{
+    text-align: right;
+    width: 40em;
 }
 
 #overlay .readout{
