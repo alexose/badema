@@ -5,6 +5,7 @@ html, body{
     padding: 0;
     overflow:hidden;
     font-family:Helvetica, sans-serif;
+    color: #fff;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -13,6 +14,10 @@ h1,h2,h3,h4,h5,h6{
     font-weight: 100;
 }
 
+
+a{
+    color: #fff;
+}
 
 div.left{
     float: left;
@@ -25,6 +30,12 @@ div.clear{
     clear: both;
 }
 
+table.receipt{
+    width: 30em;
+    margin: 0 auto;
+    font-size: 1.7em;
+}
+
 #map{
     width: 100%;
     height: 100%;
@@ -34,7 +45,7 @@ div.clear{
     color: #fff;
     z-index:999;
     position: absolute;
-    background: rgba(0,0,0,.6);
+    background: rgba(0,0,0,.9);
     border: 1px solid #000;
     height: 30em;
     width: 60em;
@@ -43,7 +54,16 @@ div.clear{
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+#dialog-inner{
+    padding:0 2em;
+    height: 30em;
     overflow-y: auto;
+}
+
+#dialog p{
+    font-size: 1.65em;
 }
 
 #dialog-close{
@@ -52,37 +72,33 @@ div.clear{
     background-size: 32px 32px;
     position: absolute;
     top: 3px;
-    right: 0;
+    right: 10px;
     height: 32px;
     width: 32px;
 }
 
-#dialog::-webkit-scrollbar {
+#dialog-inner::-webkit-scrollbar {
     width: 14px;
     height: 16px;
     overflow: visible;
 }
-#dialog::-webkit-scrollbar-thumb {
+#dialog-inner::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, .8);
     background-clip: padding-box;
     min-height: 28px;
     padding: 100px 0 0;
 }
-#dialog::-webkit-scrollbar-track {
+#dialog-inner::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, .4);
     background-clip: padding-box;
     border: solid transparent;
 }
-#dialog::-webkit-scrollbar-button {
+#dialog-inner::-webkit-scrollbar-button {
     height: 0;
     width: 0;
 }
-#dialog::-webkit-scrollbar-corner {
+#dialog-inner::-webkit-scrollbar-corner {
     background: transparent;
-}
-
-#dialog-inner{
-    padding:0 2em;
 }
 
 #dialog.side{
@@ -106,7 +122,8 @@ div.clear{
     color: #fff;
 }
 
-#overlay .jslider .jslider-value{
+#overlay .jslider .jslider-value,
+#overlay .jslider .jslider-label{
     display:none !important;
 }
 

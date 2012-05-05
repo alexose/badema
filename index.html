@@ -31,14 +31,13 @@
                 <option value="st">Straight</option>
                 <option value="gc">Great Circle</option>			
             </select>
-            <input type="button" id="maptrigger" value="Go"></input> 
         </div>
     </div>
 	<div id="map"></div>
     <div id="overlay">
         <div id="overlay-money" class="left">
-            <span class="readout-small">$&nbsp;</span><span class="readout">0.00</span>
-            <div class="slider"><input id="money-slider" type="slider" name="price" value="14"></input></div>
+            <span class="readout-small">$&nbsp;</span><span class="readout">0</span><span class="readout-small">k</span>
+            <div class="slider"><input id="money-slider" type="slider" name="price" value="0"></input></div>
         </div>
         <div id="overlay-result" class="right">
             <span class="readout-small">saves</span><span class="readout">0</span><span class="readout-small">kg co2e</span>
@@ -48,6 +47,7 @@
             <span class="readout-small">Spent on&nbsp;</span><span class="readout">Laptop Computer</span>
             <div id="supplychain-list" class="select">
                 <input type="text" id="smapid" style="width:30px;" value="744"/>
+                <input type="button" id="maptrigger" value="Go"></input> 
             </div>
         </div>
         <div class="clear"></div>
