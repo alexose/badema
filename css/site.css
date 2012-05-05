@@ -33,6 +33,7 @@ html, body{
 
 #overlay li{
     float: left;
+    width: 16em;
     padding: 0 2em;
 }
 

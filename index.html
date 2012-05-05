@@ -33,9 +33,21 @@
 	<div id="map"></div>
     <div id="overlay">
         <ul>
-            <li>
+            <li "overlay-money">
                 <span class="readout-small">$</span><span class="readout">0.00</span>
                 <div class="slider"><input id="money-slider"></input></div>
+            </li>
+            <li id="overlay-product">
+                <span class="readout">&nbsp;</span>
+                <div class="dropdown">
+                    <select class="products">
+                        <option value="744">Laptop</option>
+                        <option value="1011">Orange Juice</option>
+                    </select>
+                </div>
+            </li>
+            <li id="overlay-result">
+                <span class="readout">0</span><span class="readout-small">kg co2e</span>
             </li>
         </ul>
     </div>
