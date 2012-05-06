@@ -4,6 +4,19 @@ html, body{
     margin: 0;
     padding: 0;
     overflow:hidden;
+    font-family:Helvetica, sans-serif;
+    color: #fff;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-size: 5em;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
+}
+
+
+a{
+    color: #fff;
 }
 
 div.left{
@@ -17,9 +30,80 @@ div.clear{
     clear: both;
 }
 
+table.receipt{
+    width: 30em;
+    margin: 0 auto;
+    font-size: 1.7em;
+}
+
 #map{
     width: 100%;
     height: 100%;
+}
+
+#dialog{
+    color: #fff;
+    z-index:999;
+    position: absolute;
+    background: rgba(0,0,0,.9);
+    border: 1px solid #000;
+    height: 30em;
+    width: 60em;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#dialog-inner{
+    padding:0 2em;
+    height: 30em;
+    overflow-y: auto;
+}
+
+#dialog p{
+    font-size: 1.65em;
+}
+
+#dialog-close{
+    cursor: pointer;
+    background: url('images/close.png');
+    background-size: 32px 32px;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    height: 32px;
+    width: 32px;
+}
+
+#dialog-inner::-webkit-scrollbar {
+    width: 14px;
+    height: 16px;
+    overflow: visible;
+}
+#dialog-inner::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .8);
+    background-clip: padding-box;
+    min-height: 28px;
+    padding: 100px 0 0;
+}
+#dialog-inner::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, .4);
+    background-clip: padding-box;
+    border: solid transparent;
+}
+#dialog-inner::-webkit-scrollbar-button {
+    height: 0;
+    width: 0;
+}
+#dialog-inner::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+#dialog.side{
+    right: 20px;
+    left: auto;
 }
 
 #config{
@@ -38,14 +122,20 @@ div.clear{
     color: #fff;
 }
 
-#overlay div{
+#overlay .jslider .jslider-value,
+#overlay .jslider .jslider-label{
+    display:none !important;
+}
+
+#overlay > div{
     width: 16em;
     padding: 0 2em;
 }
 
 div#overlay-product{
+    text-align:center;
     float: none;
-    width: 100em;
+    width: 140em;
 }
 
 div#overlay-result{
@@ -63,5 +153,21 @@ div#overlay-result{
     font-size: 2em;
     font-family: 'Quicksand', sans-serif;
     font-weight: 100;
+}
+
+div.select{
+    display:inline-block;
+    width: 32px;
+    height: 32px;
+    opacity: .2;
+    background-size: 32px 32px;
+}
+
+div#supplychain-list{
+    background:url('images/arrow.png') top right no-repeat;
+}
+
+div#receipt{
+    background:url('images/page.png') top right no-repeat;
 }
 

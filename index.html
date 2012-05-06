@@ -14,36 +14,41 @@
 	<script src="lib/arc.js"></script>	
 	<script src="lib/effects.js"></script>	
 	<script src="lib/jquery.slider.min.js"></script>	
-	<style type="text/css">
-		body { font-family:Helvetica, sans-serif;}
-		#loadcontrol { width:888px; padding:5px; border:1px solid #ccc; background:#f5f5f5;}
-	</style>
 </head>
 <body>
-    <div id="config">
+    <div id="dialog">
+        <div id="dialog-close"></div>
+        <div id="dialog-inner">
+            <h1>Welcome to Badema!</h1>
+            <p>Snappy intro flavor text goes here</p>
+            <P>Using <a href="http://geoserver.org/display/GEOS/Welcome">GeoServer</a> and the <a href="http://sourcemap.com/info/api-docs">Sourcemap API</a>, we've developed a tool that helps you maximize your investment.</p>
+        </div>
+    </div>
+    <div id="config"><!-- this is hidden for now... -->
         <div id="loadcontrol" style="">
-            http://demo.sourcemap.com/services/supplychains/ <input type="text" id="smapid" style="width:30px;" value="750"/>
+            http://www.sourcemap.com/services/supplychains/ <input type="text" id="_smapid" style="width:30px;" value="750"/>
             Linestyle:
             <select id="linetype">
                 <option value="st">Straight</option>
                 <option value="gc">Great Circle</option>			
             </select>
-            <input type="button" id="maptrigger" value="Go"></input> 
         </div>
     </div>
 	<div id="map"></div>
     <div id="overlay">
         <div id="overlay-money" class="left">
-            <span class="readout-small">$</span><span class="readout">0.00</span>
-            <div class="slider"><input id="money-slider"></input></div>
+            <span class="readout-small">$&nbsp;</span><span class="readout">0</span><span class="readout-small">k</span>
+            <div class="slider"><input id="money-slider" type="slider" name="price" value="0"></input></div>
         </div>
         <div id="overlay-result" class="right">
             <span class="readout-small">saves</span><span class="readout">0</span><span class="readout-small">kg co2e</span>
+            <div id="receipt" class="select"></div>
         </div>
         <div id="overlay-product">
-            <span class="readout-small">Spent on</span><span class="readout">Laptop Computer</span>
-            <div class="select">
-
+            <span class="readout-small">Spent on&nbsp;</span><span class="readout">Laptop Computer</span>
+            <div id="supplychain-list" class="select">
+                <input type="text" id="smapid" style="width:30px;" value="744"/>
+                <input type="button" id="maptrigger" value="Go"></input> 
             </div>
         </div>
         <div class="clear"></div>
